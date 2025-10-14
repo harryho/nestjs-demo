@@ -1,0 +1,66 @@
+@baseUrl = http://localhost:3000
+
+### Register a new user
+POST {{baseUrl}}/auth/register
+Content-Type: application/json
+
+{
+  "username": "demouser",
+  "email": "demo@example.com",
+  "password": "demo123456"
+}
+
+### Login
+# @name login
+POST {{baseUrl}}/auth/login
+Content-Type: application/json
+
+{
+  "username": "demouser",
+  "password": "demo123456"
+}
+
+### Extract token from login response
+@token = {{login.response.body.access_token}}
+
+### Get all customers
+GET {{baseUrl}}/customers
+Authorization: Bearer {{token}}
+
+### Get customer by ID
+GET {{baseUrl}}/customers/5
+Authorization: Bearer {{token}}
+
+### Create customer
+# @name createCustomer
+POST {{baseUrl}}/customers
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "companyname": "Test Company",
+  "contactname": "John Doe",
+  "city": "New York",
+  "country": "USA"
+}
+
+### Get the newly created customer ID
+@newCustomerId = {{createCustomer.response.body.custid}}
+
+### Update customer
+PATCH {{baseUrl}}/customers/{{newCustomerId}}
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "companyname": "Updated Company Name",
+  "city": "Los Angeles"
+}
+
+### Get updated customer
+GET {{baseUrl}}/customers/{{newCustomerId}}
+Authorization: Bearer {{token}}
+
+### Delete customer
+DELETE {{baseUrl}}/customers/{{newCustomerId}}
+Authorization: Bearer {{token}}
