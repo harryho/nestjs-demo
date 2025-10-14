@@ -309,6 +309,7 @@ npm run test:e2e
 npm run test:watch
 ```
 
+
 ## Project Structure
 
 ```
@@ -371,6 +372,20 @@ All DTOs use class-validator decorators to ensure data integrity. The global Val
 ### Testing
 - **Unit tests** use Jest with mocked dependencies to test services and controllers in isolation
 - **E2E tests** use supertest to test the full application flow including database interactions
+
+
+### Test Coverage
+
+The project maintains excellent test coverage across all business logic:
+
+| Metric      | Coverage |
+|-------------|----------|
+| Statements  | 99.09%   |
+| Branches    | 93.75%   |
+| Functions   | 96%      |
+| Lines       | 98.96%   |
+
+
 
 ## Development Notes
 
