@@ -1,7 +1,6 @@
 import { NestFactory } from '@nestjs/core';
-import { ValidationPipe } from '@nestjs/common';
-import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import { AppModule } from './app.module';
+import { configureApp } from './app.config';
 
 async function findAvailablePort(startPort: number): Promise<number> {
   const net = require('net');
@@ -22,33 +21,7 @@ async function findAvailablePort(startPort: number): Promise<number> {
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
-  
-  app.useGlobalPipes(new ValidationPipe({
-    whitelist: true,
-    transform: true,
-  }));
-  
-  app.enableCors();
-  
-  const config = new DocumentBuilder()
-    .setTitle('NestJS Customer API')
-    .setDescription('REST API for managing customers with JWT authentication')
-    .setVersion('1.0')
-    .addBearerAuth(
-      {
-        type: 'http',
-        scheme: 'bearer',
-        bearerFormat: 'JWT',
-        name: 'JWT',
-        description: 'Enter JWT token',
-        in: 'header',
-      },
-      'JWT-auth',
-    )
-    .build();
-  
-  const document = SwaggerModule.createDocument(app, config);
-  SwaggerModule.setup('api', app, document);
+  await configureApp(app);
   
   const preferredPort = parseInt(process.env.PORT) || 3000;
   const port = await findAvailablePort(preferredPort);

@@ -1,0 +1,14 @@
+{
+  "app": "npx ts-node --prefer-ts-exts bin/nestjs-demo.ts",
+  "context": {
+    "lambdaEnv": {
+      "DB_HOST": "localhost",
+      "DB_PORT": "5432",
+      "DB_USERNAME": "postgres",
+      "DB_PASSWORD": "YourStrong@Passw0rd",
+      "DB_DATABASE": "northwind",
+      "JWT_SECRET": "your-super-secret-jwt-key-change-in-production",
+      "JWT_EXPIRES_IN": "1h"
+    }
+  }
+}

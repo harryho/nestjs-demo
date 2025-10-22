@@ -28,7 +28,7 @@ A comprehensive NestJS application demonstrating REST API development with TypeO
 - Node.js (v16 or higher)
 - npm or yarn
 - Docker (for PostgreSQL)
-- Running PostgreSQL container named `postgres-infra` with `northwind` database
+- Running PostgreSQL container named `pgsql-infra` with `northwind` database
 
 ## Installation
 
@@ -87,16 +87,16 @@ The application connects to the Northwind database running in a Docker container
    cd db-samples
    ```
 
-2. **Follow the repository's README** to create the PostgreSQL container with the Northwind database. The setup will create a container named `postgres-infra` with the `northwind` database.
+2. **Follow the repository's README** to create the PostgreSQL container with the Northwind database. The setup will create a container named `pgsql-infra` with the `northwind` database.
 
 3. **Verify the container is running:**
    ```bash
-   docker ps | grep postgres-infra
+   docker ps | grep pgsql-infra
    ```
 
 4. **If the container is stopped, start it:**
    ```bash
-   docker start postgres-infra
+   docker start pgsql-infra
    ```
 
 
@@ -384,6 +384,22 @@ The project maintains excellent test coverage across all business logic:
 | Branches    | 93.75%   |
 | Functions   | 96%      |
 | Lines       | 98.96%   |
+
+
+## AWS CDK Deployment (Optional)
+
+The `cdk/` directory holds a lightweight AWS CDK app that deploys this NestJS API as a Lambda function behind API Gateway. It uses `NodejsFunction` to bundle `src/lambda.ts`, which adapts the existing Express application through `@vendia/serverless-express`, and provisions a `LambdaRestApi` with basic access logging.
+
+### Deploying
+
+```bash
+cd cdk
+npm install
+npx cdk bootstrap   # only required once per account/region
+npx cdk deploy
+```
+
+Environment variables for the Lambda runtime can be supplied through the stack's `lambdaEnvironment` property (e.g. via context in `cdk.json`). Tailor networking or secret management to suit your AWS setup before promoting to production. To remove the resources, run `npx cdk destroy`.
 
 
 

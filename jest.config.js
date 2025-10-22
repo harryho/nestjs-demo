@@ -9,6 +9,7 @@ module.exports = {
     '**/*.(t|j)s',
     '!**/*.module.ts',
     '!main.ts',
+    '!lambda.ts',
     '!**/*.entity.ts',
     '!**/*.dto.ts',
   ],

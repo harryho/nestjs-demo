@@ -1,0 +1,23 @@
+{
+  "name": "nestjs-demo-cdk",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "build": "tsc",
+    "watch": "tsc -w",
+    "cdk": "cdk",
+    "deploy": "npm run build && cdk deploy",
+    "synth": "npm run build && cdk synth",
+    "destroy": "npm run build && cdk destroy"
+  },
+  "dependencies": {
+    "aws-cdk-lib": "^2.161.1",
+    "constructs": "^10.3.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.16.5",
+    "esbuild": "^0.23.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.9.3"
+  }
+}
